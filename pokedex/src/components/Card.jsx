@@ -1,15 +1,17 @@
 import styles from "../Card.module.css";
-import { formatName, padId, typeColor } from "../utils/PokemonUtils";
+import { formatName, padId, TYPE_COLORS } from "../utils/PokemonUtils";
 import { TypeBadge } from "./TypeBadge";
 export function Card({ pokemon, onClick }) {
   const fallback = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`;
+  const primaryType = pokemon.types[0] ?? "normal";
+  const typeColor = TYPE_COLORS[primaryType.toLowerCase()] ?? "#888";
 
   return (
     <>
       <button
         onClick={() => onClick(pokemon)}
         className={styles.card}
-        style={{ "--type-color": typeColor(pokemon.types[0]) }}
+        style={{ "--type-color": typeColor }}
       >
         <img
           src={pokemon.spriteOfficial || pokemon.sprite}
