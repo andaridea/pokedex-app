@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Space+Mono&display=swap');
+
+:root {
+  --color-bg: #f4f6fb;
+  --color-card-bg: #ffffff;
+  --color-text: #1a1a2e;
+  --color-text-muted: #7c8ba0;
+  --color-border: #e5eaf2;
+  --color-accent: #E24B4A;
+  --color-accent-light: #fef0f0;
+  --font-mono: 'Space Mono', monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f1117;
+    --color-card-bg: #E24B4A;
+    --color-text: #f0f2f8;
+    --color-text-muted: #cdd6e6;
+    --color-border: #252836;
+    --color-accent: #FF6B6B;
+    --color-accent-light: #2a1515;
+  }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+select {
+  font-family: inherit;
+}
+
+input {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
+}

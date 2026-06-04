@@ -1,0 +1,217 @@
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 100;
+  animation: fadeIn 0.15s ease;
+}
+
+.modal {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.2s ease;
+}
+
+.heroArea {
+  position: relative;
+  padding: 1.5rem 1.5rem 0;
+  background: var(--type-color, #78C850);
+  border-radius: 24px 24px 0 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.num {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  font-family: var(--font-mono);
+  margin-bottom: 2px;
+}
+
+.name {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.closeBtn {
+  background: rgba(255,255,255,0.25);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.closeBtn:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+/* Ganti .imgWrap */
+.imgWrap {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0 0;
+  position: relative;
+}
+
+/* Ganti .img */
+.img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 32px rgba(0,0,0,0.2));
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Tambah sprite thumbnail gallery */
+.spriteGallery {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 0.75rem 0 1rem;
+}
+
+.spriteThumbnail {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 4px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.spriteThumbnail:hover {
+  background: rgba(255,255,255,0.35);
+  transform: scale(1.05);
+}
+
+.spriteThumbnail.active {
+  border-color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.3);
+}
+
+.body {
+  padding: 1.5rem 1.5rem 1.5rem;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.infoCell {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.infoLabel {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.infoVal {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.statsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.totalBadge {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.statRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.statLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  width: 64px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.barWrap {
+  flex: 1;
+  background: var(--color-border);
+  border-radius: 999px;
+  height: 7px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.statVal {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text);
+  width: 28px;
+  text-align: right;
+  font-family: var(--font-mono);
+}
