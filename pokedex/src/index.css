@@ -14,9 +14,9 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg: #0f1117;
-    --color-card-bg: #1a1d27;
+    --color-card-bg: #E24B4A;
     --color-text: #f0f2f8;
-    --color-text-muted: #6b7a96;
+    --color-text-muted: #cdd6e6;
     --color-border: #252836;
     --color-accent: #FF6B6B;
     --color-accent-light: #2a1515;
