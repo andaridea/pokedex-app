@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
@@ -7,11 +7,60 @@ import { usePokemon } from "./hooks/usePokemon";
 import { useInfiniteScroll } from "./hooks/useInfiniteScroll";
 import { Card } from "./components/Card";
 import { Modal } from "./components/Modal";
+import { SearchBar } from "./components/SearchBar";
+import { TypeFilter } from "./components/TypeFilter";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [search, setSearch] = useState("");
+  const [activeTypes, setActiveTypes] = useState(new Set());
   const { pokemon, loading, error } = usePokemon();
-  const { visible, hasMore, pageRef, reset } = useInfiniteScroll(pokemon, 24);
+
+  const allTypes = useMemo(() => {
+    const set = new Set();
+    pokemon.forEach((p) => p.types.forEach((t) => set.add(t)));
+    return [...set].sort();
+  }, [pokemon]);
+
+  const filteredPokemon = useMemo(() => {
+    return pokemon.filter((p) => {
+      const query = search.trim().toLowerCase();
+
+      const matchSearch =
+        !query ||
+        p.name.toLowerCase().includes(query) ||
+        String(p.id).padStart(3, "0").includes(query.replace("#", ""));
+
+      const matchType =
+        activeTypes.size === 0 ||
+        [...activeTypes].every((type) => p.types.includes(type));
+
+      return matchSearch && matchType;
+    });
+  }, [pokemon, search, activeTypes]);
+
+  const toggleType = (type) => {
+    setActiveTypes((prev) => {
+      const next = new Set(prev);
+
+      if (next.has(type)) {
+        next.delete(type);
+      } else {
+        next.add(type);
+      }
+
+      return next;
+    });
+  };
+
+  const clearTypes = () => {
+    setActiveTypes(new Set());
+  };
+
+  const { visible, hasMore, pageRef, reset } = useInfiniteScroll(
+    filteredPokemon,
+    24,
+  );
   const [selected, setSelected] = useState(null);
 
   return (
@@ -23,13 +72,13 @@ function App() {
               <img src="./pokeball.png" className={styles.imageLogo} />
               <div>
                 <h1 className={styles.title}>Pokédex</h1>
-                {/* <p className={styles.subtitle}>
+                <p className={styles.subtitle}>
                   {loading
                     ? "Loading Pokémon..."
                     : error
                       ? "Failed to load"
-                      : `${filtered.length} of ${pokemon.length} Pokémon`}
-                </p> */}
+                      : `${filteredPokemon.length} of ${pokemon.length} Pokémon`}
+                </p>
               </div>
             </div>
           </div>
@@ -52,24 +101,19 @@ function App() {
           ) : (
             <>
               <div className={styles.controls}>
-                {/* <SearchBar
-                  search={filters.search}
-                  sort={filters.sort}
-                  onSearch={setSearch}
-                  onSort={setSort}
-                /> */}
+                <SearchBar search={search} onSearch={setSearch} />
               </div>
 
               <div className={styles.filterWrap}>
-                {/* <TypeFilter
+                <TypeFilter
                   allTypes={allTypes}
-                  activeTypes={filters.types}
+                  activeTypes={activeTypes}
                   onToggle={toggleType}
                   onClear={clearTypes}
-                /> */}
+                />
               </div>
 
-              {pokemon.length === 0 ? (
+              {filteredPokemon.length === 0 ? (
                 <div className={styles.empty} role="status">
                   <p>No Pokémon found for that search.</p>
                 </div>
@@ -80,11 +124,7 @@ function App() {
                       <Card key={p.id} pokemon={p} onClick={setSelected} />
                     ))}
                   </div>
-                  <div
-                    ref={pageRef}
-                    className={styles.sentinel}
-                    aria-hidden="true"
-                  >
+                  <div ref={pageRef} className={styles.sentinel}>
                     {hasMore && (
                       <span className={styles.loadMore}>Loading more...</span>
                     )}
